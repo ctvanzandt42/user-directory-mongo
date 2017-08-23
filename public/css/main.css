@@ -1,0 +1,104 @@
+body {
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    margin: 30px 0 30px 0;
+    background-image: url(https://1366x768wallpaper.com/no-watermarks/originals/2015/10/29/shia-labeouf-motivation-wallpaper.jpg);
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+.container {
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+    border: 1px solid grey;
+    padding: 3px;
+    width: 300px;
+    height: 300px;
+    margin-bottom: 30px;
+    background-color: black;
+    color: white;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+    flex-wrap: wrap;
+    text-align: left;
+    padding: 10px;
+}
+
+a {
+    color: cyan;
+}
+
+.home-header {
+    font-family: "Roboto", sans-serif;
+    font-size: 60px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    border-radius: 25%;
+}
+
+.users {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: space-around;
+}
+
+div.avatar {
+    height: 153px;
+    width: 208px;
+    border-radius: 100%;
+}
+
+.profile-container {
+    background-color: black;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    flex-direction: column;
+    border-radius: 25%;
+}
+
+.top-of-card {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+}
+
+.profile-avatar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 100%;
+}
+
+.top-info {
+    text-align: left;
+    margin-left: 40px;
+}
+
+.bottom-of-card {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.education, .skills {
+    display: flex;
+    flex-direction: row;
+    font-size: 20px;
+    margin-left: -20px;
+}
