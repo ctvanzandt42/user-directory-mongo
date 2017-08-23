@@ -13,12 +13,16 @@
 
 <body>
     <h1 class="home-header" onclick="play('/media/sounds/shia-surprise.mp3')">Scroll Through These Sweet Users</h1>
+    <div class="subheader">
+        <h2 class="home-subheader"><a href="/forHire">Check out these available bots!</a></h2>
+        <h2 class="home-subheader"><a href="/employed">Sorry, these bots have jobs!</a></h2>
+    </div>
     <div class="users">
         {{#users}}
         <div class="container">
-            <div class="avatar"><a href="/profile/{{id}}"><img src="{{avatar}}"></a></div>
+            <div class="avatar"><a href="/profile/{{_id}}"><img src="{{avatar}}"></a></div>
             <div class="info">
-                <div class="name"><a href="/profile/{{id}}">{{name}}</a></div>
+                <div class="name"><a href="/profile/{{_id}}">{{name}}</a></div>
                 <div class="occupation">{{^job}}For hire{{/job}}{{job}}: {{company}}</div>
             </div>
 

@@ -3,11 +3,14 @@ const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
 const mongo = require('mongodb');
-const dbUrl = "mongodb://localhost:12707/robotData"
+const dbUrl = "mongodb://localhost:27017/robotData"
 const MongoClient = mongo.MongoClient;
+const ObjectId = mongo.ObjectID;
 const port = 3000;
 const mustacheExpress = require('mustache-express');
 const data = require('./data');
+let DB;
+let Robots;
 
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
@@ -15,34 +18,50 @@ app.set("view engine", "mustache");
 
 app.use(express.static(path.join(__dirname, "./public")));
 
-let robots = data;
-app.get("/insertMany", function (req, res) {
-    MongoClient.connect(dbUrl, function (err, db) {
-        if (err) {
-            res.status(500).send(err);
-        }
+MongoClient.connect(dbUrl, (err, db) => {
+    if (err) {
+        return console.log("Error connecting to mongo", err);
+    }
+    DB = db;
+    Robots = db.collection("robots");
+});
 
-        let Robots = db.collection("robots");
+// app.get("/insertRobots", (req, res) => {
+//     Robots.insertMany(data.users, function (err, savedRobots) {
+//         if (err) {
+//             res.status(500).send(err);
+//         }
+//         res.send(savedRobots);
+//     });
+// });
 
-        People.insertMany(people, function (err, savedRobots) {
-            if (err) {
-                res.status(500).send(err);
-            }
-
-            res.send(savedRobots);
-            db.close();
-        });
+app.get("/", (req, res) => {
+    Robots.find({}).toArray((err, foundRobots) => {
+        if (err) res.status(500).send(err);
+        res.render("home", { users: foundRobots });
     });
 });
 
-app.get("/", (req, res) => {
-    res.render('home', data);
-});
 
 app.get("/profile/:id", (req, res) => {
-    let reqId = req.params.id;
-    let foundUser = data.users.find(user => user.id == reqId);
-    res.render('profile', { data: foundUser });
+    Robots.findOne({ _id: ObjectId(req.params.id) }, function (err, foundRobot) {
+        if (err) res.status(500).send(err);
+        res.render("profile", { data: foundRobot });
+    });
+});
+
+app.get("/forHire", (req, res) => {
+    Robots.find({ job: null }).toArray((err, forHireBots) => {
+        if (err) res.status(500).send(err);
+        res.render("home", { users: forHireBots });
+    });
+});
+
+app.get("/employed", (req, res) => {
+    Robots.find({ job: { $ne: null } }).toArray((err, employedBots) => {
+        if (err) res.status(500).send(err);
+        res.render("home", { users: employedBots });
+    });
 });
 
 app.listen(port, () => {
